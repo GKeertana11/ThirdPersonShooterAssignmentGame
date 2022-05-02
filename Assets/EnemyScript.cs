@@ -44,15 +44,15 @@ public class EnemyScript : MonoBehaviour
     public void Damage(int damageAmount)
     {
 
-        Audio.Play();
-        particle.Play();
+        //Audio.Play();
+       // particle.Play();
         currentHealth -= damageAmount;
 
         if(currentHealth<=0)
         {
-            deathEffect.Play();
+          //  deathEffect.Play();
             Death();
-            Debug.Log(currentHealth);
+            Debug.Log("currenthealth"+currentHealth);
         }
     }
     public void Death()
