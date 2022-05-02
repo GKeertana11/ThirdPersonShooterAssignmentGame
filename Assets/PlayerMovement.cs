@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float rotateSpeed;
     Animator anim;
+    public int health = 20;
     // Start is called before the first frame update
     void Start()
     {
