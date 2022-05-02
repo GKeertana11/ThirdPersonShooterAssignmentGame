@@ -14,6 +14,7 @@ public class EnemyScript : MonoBehaviour
     public ParticleSystem particle;
     public ParticleSystem deathEffect;
     public static EnemyScript instance;
+    Animator anim;
     AudioSource Audio;
 
     private void Awake()
@@ -31,6 +32,7 @@ public class EnemyScript : MonoBehaviour
         Audio = GetComponent<AudioSource>();
         currentHealth = startingHealth;
         Agent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
        
     }
 
@@ -45,20 +47,21 @@ public class EnemyScript : MonoBehaviour
     {
 
         //Audio.Play();
-       // particle.Play();
+        particle.Play();
         currentHealth -= damageAmount;
-
-        if(currentHealth<=0)
+        Debug.Log("currenthealth" + currentHealth);
+        if (currentHealth<=0)
         {
-          //  deathEffect.Play();
+           deathEffect.Play();
+            anim.SetBool("Loose", true);
             Death();
-            Debug.Log("currenthealth"+currentHealth);
+           
         }
     }
     public void Death()
     {
        
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
       }
 
   

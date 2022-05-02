@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = new Vector3(inputX, 0f, inputZ);
 
         character.SimpleMove(movement * speed * Time.deltaTime);
-        //anim.SetFloat("Run", movement.magnitude);
+        anim.SetFloat("Run", movement.magnitude);
        // GunScript.instance.walk();
         /*  if (movement.magnitude > 0f)
           {

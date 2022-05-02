@@ -49,6 +49,7 @@ public class GunScript : MonoBehaviour
     private void ToFireGun()
     {
         anim.SetBool("Shoot", true);
+       // anim.SetBool("Run", false);
 
       //  particle.Play();
        // audioSource.PlayOneShot(audioClips[1]);
