@@ -6,19 +6,23 @@ using UnityEngine.AI;
 public class EnemySpawnScript : MonoBehaviour
 {
     Vector3 spawnPosition;
-    public SphereCollider spawnTrigger;
+   // public SphereCollider spawnTrigger;
     bool istrigger=false;
+  //  public TargetJoint2D player;
+    public GameObject target;
     // Start is called before the first frame update
     void Start()
     {
-        spawnTrigger = GetComponent<SphereCollider>();
+        //IfPlayer();
+       // spawnTrigger = GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject temp = GameManager.instance.GetObjectsFromPool("Enemy");
-        if (temp != null /*&& istrigger==true*/)
+        GameObject temp = GameManager.instance.GetObjectsFromPool();
+        Debug.Log(Vector3.Distance(target.transform.position, this.transform.position));
+        if (temp != null/*&& istrigger==true*/&& Vector3.Distance(target.transform.position, this.transform.position)<=5f)
         {
             Debug.Log("true");
             if (Random.Range(0, 100) < 60f)
@@ -34,10 +38,21 @@ public class EnemySpawnScript : MonoBehaviour
     {
         if(other.gameObject.tag=="Player")
         {
-            istrigger = true;
+            //istrigger = true;
+            GameManager.instance.AddToPool();
         }
-    }
-   */
+    }*/
+
+  /*  public void IfPlayer()
+    {
+        
+      if(Vector3.Distance(target.transform.position, this.transform.position)<=5f)
+        {
+            Debug.Log("True");
+            GameManager.instance.AddToPool();
+        }
+    }*/
+   
 }
 
  

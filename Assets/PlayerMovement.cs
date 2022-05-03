@@ -40,13 +40,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-    private void OnTriggerEnter(Collider other)
+  /*  private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Finish")
         {
             // istrigger = true;
             GameManager.instance.AddToPool();
         }
-    }
+    }*/
 }
 

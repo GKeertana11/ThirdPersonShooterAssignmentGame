@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-       // AddToPool();
+        AddToPool();
     }
 
     // Update is called once per frame
@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         {
 
             Vector3 randompoint = transform.position + Random.insideUnitSphere * spawnRadius;
+            randompoint.y = 0f;
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randompoint, out hit, 10f, NavMesh.AllAreas))
             {
@@ -75,7 +76,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    public GameObject GetObjectsFromPool(string tagname)
+    public GameObject GetObjectsFromPool()
     {
         for (int i = 0; i < Enemypool.Count; i++)
         {
