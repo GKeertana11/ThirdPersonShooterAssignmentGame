@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
    // public int number;
     public float spawnRadius;
     bool spawnOnStart = true;
+    
 
 
     public List<GameObject> Enemypool = new List<GameObject>();
@@ -31,7 +32,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-        AddToPool();
+       // AddToPool();
     }
 
     // Update is called once per frame
@@ -42,14 +43,15 @@ public class GameManager : MonoBehaviour
     public void AddToPool()
     {
 
-        /*for (int i = 0; i < 10; i++)
-        {
+        /*  for (int i = 0; i < 10; i++)
+          {
 
-            GameObject temp = Instantiate(prefab);
-            temp.SetActive(false);
-            Enemypool.Add(temp);
+              GameObject temp = Instantiate(prefab);
+              temp.SetActive(false);
+              Enemypool.Add(temp);
 
-        }*/
+          }*/
+
         for (int i = 0; i < 10; i++)
         {
 
@@ -58,19 +60,20 @@ public class GameManager : MonoBehaviour
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randompoint, out hit, 10f, NavMesh.AllAreas))
             {
-                //int k = Random.Range(0, zombieePrefabs.Length);
+
                 GameObject temp = Instantiate(prefab, randompoint, Quaternion.identity);
                 temp.SetActive(false);
                 Enemypool.Add(temp);
-                //Instantiate(zombieePrefabs[1], randompoint, Quaternion.identity);
+
 
             }
             else
             {
                 i--;
             }
-
         }
+
+        
     }
     
 

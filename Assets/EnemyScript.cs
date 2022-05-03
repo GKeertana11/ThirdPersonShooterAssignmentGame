@@ -14,6 +14,7 @@ public class EnemyScript : MonoBehaviour
     public ParticleSystem particle;
     public ParticleSystem deathEffect;
     public static EnemyScript instance;
+   
     Animator anim;
     AudioSource Audio;
 

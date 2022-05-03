@@ -10,6 +10,9 @@ public class EnemySpawnScript : MonoBehaviour
     bool istrigger=false;
   //  public TargetJoint2D player;
     public GameObject target;
+    public GameObject spawnpoint;
+    public float spawnRadius;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,15 +24,22 @@ public class EnemySpawnScript : MonoBehaviour
     void Update()
     {
         GameObject temp = GameManager.instance.GetObjectsFromPool();
-        Debug.Log(Vector3.Distance(target.transform.position, this.transform.position));
-        if (temp != null/*&& istrigger==true*/&& Vector3.Distance(target.transform.position, this.transform.position)<=5f)
+       // Debug.Log(Vector3.Distance(target.transform.position, this.transform.position));
+        if (temp != null)
         {
             Debug.Log("true");
             if (Random.Range(0, 100) < 60f)
             {
-                
-             
-                temp.SetActive(true);
+               
+
+                    
+                    temp.SetActive(true);
+
+
+                }
+                   
+
+                    
             }
         }
 
@@ -53,7 +63,7 @@ public class EnemySpawnScript : MonoBehaviour
         }
     }*/
    
-}
+
 
  
     

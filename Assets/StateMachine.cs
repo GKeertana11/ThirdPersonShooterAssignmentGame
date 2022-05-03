@@ -19,6 +19,7 @@ public class StateMachine : MonoBehaviour
     public PlayerMovement player;
     //  public AudioSource audioSources;
     AudioClip audioClip;
+    public float time;
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -71,7 +72,29 @@ public class StateMachine : MonoBehaviour
                 TurnOffAllAnim();
                 transform.LookAt(target.transform.position);
                 animator.SetBool("ATTACK", true);
-                if (DistanceToPlayer() > 30f)
+                time = time + Time.deltaTime;
+                if (player != null)
+                {
+                    if (time>=3f)
+                    {
+                        player.health--;
+                        player.health--;
+                        Debug.Log(player.health);
+                        time = 0f;
+
+                    }
+
+                    if (player.health == 0)
+                    {
+                        Destroy(target);
+                        isGameOver = true;
+                        TurnOffAllAnim();
+                        // PlayerController.GameOver();
+                    }
+                }
+
+
+                    if (DistanceToPlayer() > 30f)
                 {
                     state = STATE.IDLE;
 
@@ -122,7 +145,7 @@ public class StateMachine : MonoBehaviour
         animator.SetBool("ATTACK", false);
     }
 
-    public void Attack()
+   /* public void Attack()
     {
         currentTime = currentTime - Time.deltaTime;
         if (player != null)
@@ -146,6 +169,6 @@ public class StateMachine : MonoBehaviour
             //  }
 
 
-        }
+        }*/
     }
-}
+
