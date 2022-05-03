@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed;
     public float rotateSpeed;
     Animator anim;
-    public int health = 20;
+    public int health = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = new Vector3(inputX, 0f, inputZ);
 
         character.SimpleMove(movement * speed * Time.deltaTime);
-        anim.SetFloat("Run", movement.magnitude);
+        anim.SetFloat("speed", movement.magnitude);
        // GunScript.instance.walk();
         /*  if (movement.magnitude > 0f)
           {
@@ -39,6 +39,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Finish")
+        {
+            // istrigger = true;
+            GameManager.instance.AddToPool();
+        }
     }
 }
 

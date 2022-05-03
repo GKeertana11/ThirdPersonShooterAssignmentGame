@@ -48,10 +48,12 @@ public class StateMachine : MonoBehaviour
                 TurnOffAllAnim();
                 animator.SetBool("RUN", true);
                 // audioSources.Play();
+                transform.LookAt(target.transform.position);
+
                 agent.SetDestination(target.transform.position);
-                agent.stoppingDistance = 15f;
+                agent.stoppingDistance = 5f;
                 print("running");
-                if (DistanceToPlayer() <= 16f)
+                if (DistanceToPlayer() <= 5f)
                 {
                     state = STATE.ATTACK;
                 }
@@ -59,7 +61,7 @@ public class StateMachine : MonoBehaviour
 
 
 
-                if (DistanceToPlayer() > 21f)
+                if (DistanceToPlayer() > 30f)
                 {
                     state = STATE.IDLE;
                     agent.isStopped = true;
@@ -67,14 +69,15 @@ public class StateMachine : MonoBehaviour
                 break;
             case STATE.ATTACK:
                 TurnOffAllAnim();
+                transform.LookAt(target.transform.position);
                 animator.SetBool("ATTACK", true);
-                if (DistanceToPlayer() > 20f)
+                if (DistanceToPlayer() > 30f)
                 {
                     state = STATE.IDLE;
 
                 }
-               // Attack();
-                if (DistanceToPlayer() > 16f&& DistanceToPlayer()<20f)
+                // Attack();
+                if (DistanceToPlayer() > 16f && DistanceToPlayer() < 30f)
                 {
                     state = STATE.CHASE;
                     agent.isStopped = false;
@@ -119,28 +122,30 @@ public class StateMachine : MonoBehaviour
         animator.SetBool("ATTACK", false);
     }
 
-   /* public void Attack()
+    public void Attack()
     {
         currentTime = currentTime - Time.deltaTime;
         if (player != null)
         {
             if (currentTime <= 0f)
             {
-                // player.health--;
-                // player.health--;
+                player.health--;
+                player.health--;
                 Debug.Log(player.health);
                 currentTime = attackTime;
 
             }
 
-            /* if (player.health == 0)
-             {
-                // Destroy(target);
-                 isGameOver = true;
-                 TurnOffAllAnim();
-                 // PlayerController.GameOver();
-             }*/
-      //  }
+            if (player.health == 0)
+            {
+                Destroy(target);
+                isGameOver = true;
+                TurnOffAllAnim();
+                // PlayerController.GameOver();
+            }
+            //  }
 
-   
+
+        }
+    }
 }

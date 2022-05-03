@@ -60,9 +60,15 @@ public class EnemyScript : MonoBehaviour
     }
     public void Death()
     {
-       
-        //gameObject.SetActive(false);
+       // StartCoroutine("DeathAfterSeconds");
+       // this.gameObject.SetActive(false);
       }
+
+    IEnumerator DeathAfterSeconds()
+    {
+        Debug.Log("couroutine called");
+        yield return new WaitForSeconds(8f);
+    }
 
   
 }
