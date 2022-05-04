@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class StateMachine : MonoBehaviour
 {
@@ -17,9 +18,11 @@ public class StateMachine : MonoBehaviour
     public float attackTime;
     bool isGameOver = false;
     public PlayerMovement player;
+    public Slider healthBar;
     //  public AudioSource audioSources;
     AudioClip audioClip;
     public float time;
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -79,6 +82,8 @@ public class StateMachine : MonoBehaviour
                     {
                         player.health--;
                         player.health--;
+                        healthBar.value = (float)player.health / 100;
+
                         Debug.Log(player.health);
                         time = 0f;
 
@@ -86,7 +91,7 @@ public class StateMachine : MonoBehaviour
 
                     if (player.health == 0)
                     {
-                        Destroy(target);
+                        
                         isGameOver = true;
                         TurnOffAllAnim();
                         // PlayerController.GameOver();

@@ -11,8 +11,8 @@ public class EnemyScript : MonoBehaviour
     public int currentHealth;
     NavMeshAgent Agent;
     public GameObject player;
-    public ParticleSystem particle;
-    public ParticleSystem deathEffect;
+    public GameObject particle;
+    public GameObject deathEffect;
     public static EnemyScript instance;
    
     Animator anim;
@@ -48,14 +48,21 @@ public class EnemyScript : MonoBehaviour
     {
 
         //Audio.Play();
-        particle.Play();
+        // particle.Play();
+       GameObject effect= Instantiate(particle, this.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        Destroy(effect, 1f);
+        
         currentHealth -= damageAmount;
         Debug.Log("currenthealth" + currentHealth);
         if (currentHealth<=0)
         {
-           deathEffect.Play();
+            // deathEffect.Play();
+          GameObject effect_= Instantiate(deathEffect, this.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+
+            Destroy(effect_,1f);
             anim.SetBool("Loose", true);
-            Death();
+            // Death();
+            this.gameObject.SetActive(false);
            
         }
     }

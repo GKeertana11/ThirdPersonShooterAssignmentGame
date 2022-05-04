@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float rotateSpeed;
     Animator anim;
     public int health;
+    public Slider healthBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +21,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         float inputX = Input.GetAxis("Horizontal");
         float inputZ = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(inputX, 0f, inputZ);
 
         character.SimpleMove(movement * speed * Time.deltaTime);
         anim.SetFloat("speed", movement.magnitude);
+        
        // GunScript.instance.walk();
         /*  if (movement.magnitude > 0f)
           {

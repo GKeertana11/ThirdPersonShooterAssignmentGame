@@ -17,6 +17,8 @@ public class GunScript : MonoBehaviour
    // public  ParticleSystem particle;
     public static GunScript instance;
     Animator anim;
+    public ParticleSystem particle;
+    public GameObject prefab;
 
     private void Awake()
     {
@@ -48,8 +50,14 @@ public class GunScript : MonoBehaviour
     }
     private void ToFireGun()
     {
-        anim.SetBool("Shoot", true);
-       // anim.SetBool("Run", false);
+       // particle.Play();
+        //anim.SetBool("Shoot", true);
+        // anim.SetBool("Run", false);
+        anim.SetFloat("speed", 0);
+        anim.SetTrigger("Shoot");
+
+        GameObject effect = Instantiate(prefab, spawnPoint.transform.position , Quaternion.identity) ;
+        Destroy(effect,1f);
 
       //  particle.Play();
        // audioSource.PlayOneShot(audioClips[1]);
@@ -70,8 +78,5 @@ public class GunScript : MonoBehaviour
 
        
     }
-    public void walk()
-    {
-       // audioSource.PlayOneShot(audioClips[0]);
-    }
+   
 }
