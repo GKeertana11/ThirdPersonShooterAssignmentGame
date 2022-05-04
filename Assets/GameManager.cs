@@ -16,9 +16,9 @@ public class GameManager : MonoBehaviour
     
 
 
-    public List<GameObject> Enemypool = new List<GameObject>();
+    public List<GameObject> Enemypool = new List<GameObject>();//creating a list of enemies for object pooling.
 
-    private void Awake()
+    private void Awake()//Single ton
     {
         if (instance == null)
         {
@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-       // AddToPool();
+        AddToPool();
     }
 
     // Update is called once per frame
@@ -40,30 +40,21 @@ public class GameManager : MonoBehaviour
     {
 
     }
-    public void AddToPool()
+    public void AddToPool()//This method is to add all the enemies into enemiespool list.
     {
-
-        /*  for (int i = 0; i < 10; i++)
-          {
-
-              GameObject temp = Instantiate(prefab);
-              temp.SetActive(false);
-              Enemypool.Add(temp);
-
-          }*/
 
         for (int i = 0; i < 10; i++)
         {
 
-            Vector3 randompoint = transform.position + Random.insideUnitSphere * spawnRadius;
+            Vector3 randompoint = transform.position + Random.insideUnitSphere * spawnRadius;//spawn position of enemies inside given sphere radius.
             randompoint.y = 0f;
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randompoint, out hit, 10f, NavMesh.AllAreas))
             {
 
-                GameObject temp = Instantiate(prefab, randompoint, Quaternion.identity);
-                temp.SetActive(false);
-                Enemypool.Add(temp);
+                GameObject temp = Instantiate(prefab, randompoint, Quaternion.identity);//Instantiating enemy prefabs
+                temp.SetActive(false);//making enemy prefabs false in the heirarchy.
+                Enemypool.Add(temp);//adding instantiated prefab into the enemy pool list.
 
 
             }
@@ -79,16 +70,16 @@ public class GameManager : MonoBehaviour
 
 
 
-    public GameObject GetObjectsFromPool()
+    public GameObject GetObjectsFromPool()//This method is to return enemyprefabs.
     {
         for (int i = 0; i < Enemypool.Count; i++)
         {
-            if ( !Enemypool[i].gameObject.activeInHierarchy)
+            if ( !Enemypool[i].gameObject.activeInHierarchy)// if  enemy prefab[i] is inactive in hierarchy 
             {
-                return Enemypool[i].gameObject;
+                return Enemypool[i].gameObject;//then return this enemy prefab to reuse it.
             }
         }
-        return null;
+        return null;//else return null
 
     }
 }

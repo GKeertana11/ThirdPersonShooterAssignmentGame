@@ -14,11 +14,12 @@ public class EnemyScript : MonoBehaviour
     public GameObject particle;
     public GameObject deathEffect;
     public static EnemyScript instance;
+    public AudioSource[] audios;
    
     Animator anim;
     AudioSource Audio;
 
-    private void Awake()
+    private void Awake()//single ton
     {
         if (instance == null)
         {
@@ -41,42 +42,38 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
 
-        Agent.SetDestination(player.transform.position);
-        Agent.stoppingDistance = 5f;
+        Agent.SetDestination(player.transform.position);//setting player as goal point for enemy (or) To make enemy follow player.
+       // Agent.stoppingDistance = 5f;//enemy should stop this distance.
     }
-    public void Damage(int damageAmount)
+    public void Damage(int damageAmount)//This method is to decrease enemy health as player shoots enemy.
     {
 
-        //Audio.Play();
-        // particle.Play();
-       GameObject effect= Instantiate(particle, this.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+        
+       GameObject effect= Instantiate(particle, this.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);//particle effects when enemy gets damaged.
         Destroy(effect, 1f);
+        PlayerAudioSource.instance.EnemyHit();
         
         currentHealth -= damageAmount;
         Debug.Log("currenthealth" + currentHealth);
         if (currentHealth<=0)
         {
-            // deathEffect.Play();
-          GameObject effect_= Instantiate(deathEffect, this.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);
+            
+          GameObject effect_= Instantiate(deathEffect, this.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);//particle effect when enemy dies.
 
             Destroy(effect_,1f);
             anim.SetBool("Loose", true);
-            // Death();
-            this.gameObject.SetActive(false);
+            GameObject temp = this.gameObject;
+            
+           
+            this.gameObject.SetActive(false);//As enemy dies sending enemy back to pool and making them false.
+            GameManager.instance.Enemypool.Add(temp);
+           
            
         }
     }
-    public void Death()
-    {
-       // StartCoroutine("DeathAfterSeconds");
-       // this.gameObject.SetActive(false);
-      }
+  
 
-    IEnumerator DeathAfterSeconds()
-    {
-        Debug.Log("couroutine called");
-        yield return new WaitForSeconds(8f);
-    }
+ 
 
   
 }

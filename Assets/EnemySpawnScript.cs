@@ -16,52 +16,26 @@ public class EnemySpawnScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //IfPlayer();
-       // spawnTrigger = GetComponent<SphereCollider>();
+ 
     }
 
     // Update is called once per frame
     void Update()
     {
-        GameObject temp = GameManager.instance.GetObjectsFromPool();
-       // Debug.Log(Vector3.Distance(target.transform.position, this.transform.position));
+        GameObject temp = GameManager.instance.GetObjectsFromPool();//getting enemy from the enemy pool.
+      
         if (temp != null)
         {
             Debug.Log("true");
-            if (Random.Range(0, 100) < 60f)
+            if (Random.Range(0, 100) < 10f)
             {
-               
-
-                    
-                    temp.SetActive(true);
-
-
-                }
-                   
-
-                    
-            }
+                temp.SetActive(true);//making enemy prefabs active in the game window.
+             }
+             }
         }
 
     }
-   /* private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag=="Player")
-        {
-            //istrigger = true;
-            GameManager.instance.AddToPool();
-        }
-    }*/
-
-  /*  public void IfPlayer()
-    {
-        
-      if(Vector3.Distance(target.transform.position, this.transform.position)<=5f)
-        {
-            Debug.Log("True");
-            GameManager.instance.AddToPool();
-        }
-    }*/
+  
    
 
 

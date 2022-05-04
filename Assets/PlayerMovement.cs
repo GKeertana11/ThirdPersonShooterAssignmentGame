@@ -26,30 +26,19 @@ public class PlayerMovement : MonoBehaviour
         float inputZ = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(inputX, 0f, inputZ);
 
-        character.SimpleMove(movement * speed * Time.deltaTime);
+       
         anim.SetFloat("speed", movement.magnitude);
-        
-       // GunScript.instance.walk();
-        /*  if (movement.magnitude > 0f)
-          {
-              Quaternion tempDirection = Quaternion.LookRotation(movement * Time.deltaTime);
-              transform.rotation = Quaternion.Slerp(transform.rotation, tempDirection, Time.deltaTime * rotateSpeed);
-          }*/
-        transform.Rotate(Vector3.up, inputX * rotateSpeed * Time.deltaTime);
+
+      
+        transform.Rotate(Vector3.up, inputX * rotateSpeed * Time.deltaTime);  //Rotation of player in left and right direction.
         if (inputZ != 0)
         {
-            character.SimpleMove(transform.forward * Time.deltaTime * inputZ);
+            character.SimpleMove(transform.forward * Time.deltaTime * inputZ*speed);//Movement of player in forward and backward direction.
+            PlayerAudioSource.instance.PlayerWalk();
         }
 
 
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Finish")
-        {
-            // istrigger = true;
-            GameManager.instance.AddToPool();
-        }
-    }
+ 
 }
 

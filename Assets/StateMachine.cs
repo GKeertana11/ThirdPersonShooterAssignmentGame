@@ -19,16 +19,18 @@ public class StateMachine : MonoBehaviour
     bool isGameOver = false;
     public PlayerMovement player;
     public Slider healthBar;
-    //  public AudioSource audioSources;
+    int count = 0;
+  
     AudioClip audioClip;
     public float time;
+    public GameObject ragdoll;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         player = target.GetComponent<PlayerMovement>();
-        //  audioSources = GetComponent<AudioSource>();
+      
 
 
         audioClip = GetComponent<AudioClip>();
@@ -38,88 +40,99 @@ public class StateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (state)
+        if (target != null)
         {
-            case STATE.IDLE:
-                TurnOffAllAnim();
-                agent.isStopped = true;
-                if (NearPlayer())
-                {
-                    state = STATE.CHASE;
-                }
-                break;
-            case STATE.CHASE:
-                TurnOffAllAnim();
-                animator.SetBool("RUN", true);
-                // audioSources.Play();
-                transform.LookAt(target.transform.position);
-
-                agent.SetDestination(target.transform.position);
-                agent.stoppingDistance = 5f;
-                print("running");
-                if (DistanceToPlayer() <= 5f)
-                {
-                    state = STATE.ATTACK;
-                }
-
-
-
-
-                if (DistanceToPlayer() > 30f)
-                {
-                    state = STATE.IDLE;
+            switch (state)
+            {
+                case STATE.IDLE:
+                    TurnOffAllAnim();
                     agent.isStopped = true;
-                }
-                break;
-            case STATE.ATTACK:
-                TurnOffAllAnim();
-                transform.LookAt(target.transform.position);
-                animator.SetBool("ATTACK", true);
-                time = time + Time.deltaTime;
-                if (player != null)
-                {
-                    if (time>=3f)
+                    if (NearPlayer())
                     {
-                        player.health--;
-                        player.health--;
-                        healthBar.value = (float)player.health / 100;
+                        state = STATE.CHASE;
+                    }
+                    break;
+                case STATE.CHASE:
+                    TurnOffAllAnim();
+                    animator.SetBool("RUN", true);
+                    
+                    transform.LookAt(target.transform.position);
 
-                        Debug.Log(player.health);
-                        time = 0f;
-
+                    agent.SetDestination(target.transform.position);
+                    agent.stoppingDistance = 5f;
+                    print("running");
+                    if (DistanceToPlayer() <= 5f)
+                    {
+                        state = STATE.ATTACK;
                     }
 
-                    if (player.health == 0)
+
+
+
+                    if (DistanceToPlayer() > 20f)
                     {
-                        
-                        isGameOver = true;
-                        TurnOffAllAnim();
-                        // PlayerController.GameOver();
+                        state = STATE.IDLE;
+                        agent.isStopped = true;
                     }
-                }
+                    break;
+
+                case STATE.ATTACK:
+                    TurnOffAllAnim();
+                    transform.LookAt(target.transform.position);
+                    animator.SetBool("ATTACK", true);
+                    time = time + Time.deltaTime;
+                    if (player != null)
+                    {
+                        if (time >= 3f)
+                        {
+                            player.health--;
+                            player.health--;
+                            healthBar.value = (float)player.health / 100;
+
+                            Debug.Log(player.health);
+                            time = 0f;
+
+                        }
+
+                        if (player.health == 0)
+                        {
+                            count++;
+                           
+                           
+                            if(count==1)
+                            {
+                                Instantiate(ragdoll, target.transform.position, Quaternion.identity);
+                            }
+                            target.SetActive(false);
+                            isGameOver = true;
+                            TurnOffAllAnim();
+
+                        }
+                    }
 
 
-                    if (DistanceToPlayer() > 30f)
-                {
-                    state = STATE.IDLE;
+                    if (DistanceToPlayer() > 20f)
+                    {
+                        state = STATE.IDLE;
 
-                }
-                // Attack();
-                if (DistanceToPlayer() > 16f && DistanceToPlayer() < 30f)
-                {
-                    state = STATE.CHASE;
-                    agent.isStopped = false;
-                }
-                break;
+                    }
+                    
+                    if (DistanceToPlayer() >= 10f )
+                    {
+                        state = STATE.CHASE;
+                        agent.isStopped = false;
+                    }
+                    break;
 
-            case STATE.DEATH:
-                TurnOffAllAnim();
-                // animator.SetBool("Death", true);
-                break;
-            default:
-                break;
+                case STATE.DEATH:
+                    TurnOffAllAnim();
+                    
+                    break;
+                default:
+                    break;
+            }
+
         }
-
     }
 
     private float DistanceToPlayer()
@@ -129,7 +142,7 @@ public class StateMachine : MonoBehaviour
 
     public bool NearPlayer()
     {
-        if (DistanceToPlayer() < 20f)
+        if (DistanceToPlayer() < 10f)
         {
             return true;
         }
@@ -145,35 +158,13 @@ public class StateMachine : MonoBehaviour
     }
     public void TurnOffAllAnim()
     {
-        // animator.SetBool("Death", false);
+      
         animator.SetBool("RUN", false);
         animator.SetBool("ATTACK", false);
     }
 
-   /* public void Attack()
-    {
-        currentTime = currentTime - Time.deltaTime;
-        if (player != null)
-        {
-            if (currentTime <= 0f)
-            {
-                player.health--;
-                player.health--;
-                Debug.Log(player.health);
-                currentTime = attackTime;
+  
 
-            }
-
-            if (player.health == 0)
-            {
-                Destroy(target);
-                isGameOver = true;
-                TurnOffAllAnim();
-                // PlayerController.GameOver();
-            }
-            //  }
-
-
-        }*/
-    }
+    
+}
 

@@ -12,9 +12,7 @@ public class GunScript : MonoBehaviour
     float timer;
     public Transform spawnPoint;
     public Vector3 offset;
-  // public AudioSource audioSource;
-  //  public List<AudioClip> audioClips;
-   // public  ParticleSystem particle;
+
     public static GunScript instance;
     Animator anim;
     public ParticleSystem particle;
@@ -31,7 +29,7 @@ public class GunScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // audioSource = GetComponent<AudioSource>();
+      
         anim = GetComponent<Animator>();
     }
 
@@ -50,28 +48,26 @@ public class GunScript : MonoBehaviour
     }
     private void ToFireGun()
     {
-       // particle.Play();
-        //anim.SetBool("Shoot", true);
-        // anim.SetBool("Run", false);
+       
         anim.SetFloat("speed", 0);
-        anim.SetTrigger("Shoot");
+        PlayerAudioSource.instance.ShotFire();
+        anim.SetTrigger("Shoot");//Shoot animation is trigerred.
 
-        GameObject effect = Instantiate(prefab, spawnPoint.transform.position , Quaternion.identity) ;
+        GameObject effect = Instantiate(prefab, spawnPoint.transform.position , Quaternion.identity) ;//Particle effect while shooting.
         Destroy(effect,1f);
 
-      //  particle.Play();
-       // audioSource.PlayOneShot(audioClips[1]);
+   
         Debug.DrawRay(spawnPoint.transform.position+offset, transform.forward * 100, Color.red,2f);
         Ray ray = new Ray(spawnPoint.position, transform.forward);
         RaycastHit HitInfo;
-        if(Physics.Raycast(ray,out HitInfo,100f))
+        if(Physics.Raycast(ray,out HitInfo,100f))//checking if ray hit any collider
         {
           
-            //need to shoot the enemy
-           var health= HitInfo.collider.GetComponent<EnemyScript>();
+            
+           var health= HitInfo.collider.GetComponent<EnemyScript>();//if ray hits enemy getting enemy script to decrese health of enemy.
             if(health!=null)
             {
-                health.Damage(5);
+                health.Damage(5);//calling damage method decrese health when player shoots enemy.
             }
 
         }
