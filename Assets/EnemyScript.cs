@@ -16,6 +16,7 @@ public class EnemyScript : MonoBehaviour
     public GameObject deathEffect;
     public static EnemyScript instance;
     public AudioSource[] audios;
+    PlayerMovement playerMoment;
 
    
     Animator anim;
@@ -34,6 +35,7 @@ public class EnemyScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerMoment = GetComponent<PlayerMovement>();
         Audio = GetComponent<AudioSource>();
         currentHealth = startingHealth;
         Agent = GetComponent<NavMeshAgent>();
@@ -56,7 +58,7 @@ public class EnemyScript : MonoBehaviour
        GameObject effect= Instantiate(particle, this.transform.position + new Vector3(0f, 2f, 0f), Quaternion.identity);//particle effects when enemy gets damaged.
         Destroy(effect, 1f);
         PlayerAudioSource.instance.EnemyHit();
-        
+      
         currentHealth -= damageAmount;
         Debug.Log("currenthealth" + currentHealth);
         if (currentHealth<=0)
@@ -67,6 +69,8 @@ public class EnemyScript : MonoBehaviour
             Destroy(effect_,1f);
             anim.SetBool("Loose", true);
             GameObject temp = this.gameObject;
+            
+
 
          this.gameObject.SetActive(false);//As enemy dies sending enemy back to pool and making them false.
             GameManager.instance.Enemypool.Add(temp);

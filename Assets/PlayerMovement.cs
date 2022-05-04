@@ -10,14 +10,17 @@ public class PlayerMovement : MonoBehaviour
     public float rotateSpeed;
     Animator anim;
     public int health;
+    public int maxhealth;
     public Slider healthBar;
-    public int maxhealth = 100;
+    public GameObject ragdoll;
+   
 
     // Start is called before the first frame update
     void Start()
     {
         character = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
+        //enemy = GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -41,9 +44,20 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-    
+    public void Ragdoll()
+    {
+        
+            Instantiate(ragdoll, this.transform.position, Quaternion.identity);
+        
+    }
 
-   
+   /* public void Score()
+    {
+       
+
+    }*/
+
+
 
 }
 

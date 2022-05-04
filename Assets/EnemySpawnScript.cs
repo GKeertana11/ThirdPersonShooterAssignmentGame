@@ -27,7 +27,7 @@ public class EnemySpawnScript : MonoBehaviour
         if (temp != null)
         {
             Debug.Log("true");
-            if (Random.Range(0, 100) < 10f)
+            if (Random.Range(0, 100) < 2f)
             {
                 temp.SetActive(true);//making enemy prefabs active in the game window.
              }

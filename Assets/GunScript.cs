@@ -24,6 +24,7 @@ public class GunScript : MonoBehaviour
     public int enemycount = 0;
     public Text enemy;
 
+
     private void Awake()
     {
         if (instance == null)
@@ -38,7 +39,7 @@ public class GunScript : MonoBehaviour
       
         anim = GetComponent<Animator>();
         player = GetComponent<PlayerMovement>();
-        enemy = GetComponent<Text>();
+      
     }
 
     // Update is called once per frame
@@ -80,6 +81,8 @@ public class GunScript : MonoBehaviour
             if(health!=null)
             {
                 health.Damage(5);//calling damage method decrese health when player shoots enemy.
+                enemycount = enemycount + 1;
+                enemy.text = enemycount.ToString();
             }
 
         }

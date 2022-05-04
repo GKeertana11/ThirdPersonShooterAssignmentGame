@@ -23,7 +23,7 @@ public class StateMachine : MonoBehaviour
   
     AudioClip audioClip;
     public float time;
-    public GameObject ragdoll;
+   
     public Text gameover;
 
     void Start()
@@ -100,7 +100,7 @@ public class StateMachine : MonoBehaviour
                         {
                                 isGameOver = true;
 
-                            //Ragdoll();
+                            player.Ragdoll();
 
                             //target.SetActive(false);
                             gameover.GetComponent<Text>().enabled = true;
@@ -162,13 +162,7 @@ public class StateMachine : MonoBehaviour
         animator.SetBool("RUN", false);
         animator.SetBool("ATTACK", false);
     }
-    public void Ragdoll()
-    {
-        if (isGameOver == true)
-        {
-            Instantiate(ragdoll, target.transform.position, Quaternion.identity);
-        }
-    }
+   
 
   
 
