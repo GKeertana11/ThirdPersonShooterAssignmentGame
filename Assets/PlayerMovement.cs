@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     Animator anim;
     public int health;
     public Slider healthBar;
+    public int maxhealth = 100;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
- 
+   
+
 }
 

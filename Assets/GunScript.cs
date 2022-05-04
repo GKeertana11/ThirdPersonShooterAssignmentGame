@@ -17,6 +17,9 @@ public class GunScript : MonoBehaviour
     Animator anim;
     public ParticleSystem particle;
     public GameObject prefab;
+    int ammo = 10;
+    int maxAmmo = 20;
+    PlayerMovement player;
 
     private void Awake()
     {
@@ -31,6 +34,7 @@ public class GunScript : MonoBehaviour
     {
       
         anim = GetComponent<Animator>();
+        player = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -60,9 +64,13 @@ public class GunScript : MonoBehaviour
         Debug.DrawRay(spawnPoint.transform.position+offset, transform.forward * 100, Color.red,2f);
         Ray ray = new Ray(spawnPoint.position, transform.forward);
         RaycastHit HitInfo;
-        if(Physics.Raycast(ray,out HitInfo,100f))//checking if ray hit any collider
+        ammo--;
+        Debug.Log(ammo);
+
+        if (Physics.Raycast(ray,out HitInfo,100f))//checking if ray hit any collider
         {
-          
+            
+           
             
            var health= HitInfo.collider.GetComponent<EnemyScript>();//if ray hits enemy getting enemy script to decrese health of enemy.
             if(health!=null)
@@ -74,5 +82,24 @@ public class GunScript : MonoBehaviour
 
        
     }
-   
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ammo" && ammo < maxAmmo)
+        {
+            Destroy(collision.gameObject);
+
+            ammo = Mathf.Clamp(ammo + 25, 0, maxAmmo);
+            Debug.Log("Collected ammo");
+
+        }
+        if (collision.gameObject.tag == "Med" && player.health <= player.maxhealth)
+        {
+            Destroy(collision.gameObject);
+
+            ammo = Mathf.Clamp(ammo + 25, 0, maxAmmo);
+            Debug.Log("Collected ammo");
+
+        }
+    }
+
 }
