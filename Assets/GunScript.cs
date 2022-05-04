@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GunScript : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class GunScript : MonoBehaviour
     int ammo = 10;
     int maxAmmo = 20;
     PlayerMovement player;
+    public int enemycount = 0;
+    public Text enemy;
 
     private void Awake()
     {
@@ -35,6 +38,7 @@ public class GunScript : MonoBehaviour
       
         anim = GetComponent<Animator>();
         player = GetComponent<PlayerMovement>();
+        enemy = GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -101,5 +105,6 @@ public class GunScript : MonoBehaviour
 
         }
     }
+   
 
 }

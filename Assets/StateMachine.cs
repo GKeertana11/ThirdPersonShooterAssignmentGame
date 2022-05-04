@@ -24,6 +24,7 @@ public class StateMachine : MonoBehaviour
     AudioClip audioClip;
     public float time;
     public GameObject ragdoll;
+    public Text gameover;
 
     void Start()
     {
@@ -34,13 +35,14 @@ public class StateMachine : MonoBehaviour
 
 
         audioClip = GetComponent<AudioClip>();
+       
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (target != null)
+        if (target != null&&isGameOver==false)
         {
             switch (state)
             {
@@ -94,18 +96,16 @@ public class StateMachine : MonoBehaviour
 
                         }
 
-                        if (player.health == 0)
+                        if (player.health <= 0)
                         {
-                            count++;
+                                isGameOver = true;
+
+                            //Ragdoll();
+
+                            //target.SetActive(false);
+                            gameover.GetComponent<Text>().enabled = true;
                            
-                           
-                            if(count==1)
-                            {
-                                Instantiate(ragdoll, target.transform.position, Quaternion.identity);
-                            }
-                            target.SetActive(false);
-                            isGameOver = true;
-                            TurnOffAllAnim();
+                             TurnOffAllAnim();
 
                         }
                     }
@@ -161,6 +161,13 @@ public class StateMachine : MonoBehaviour
       
         animator.SetBool("RUN", false);
         animator.SetBool("ATTACK", false);
+    }
+    public void Ragdoll()
+    {
+        if (isGameOver == true)
+        {
+            Instantiate(ragdoll, target.transform.position, Quaternion.identity);
+        }
     }
 
   

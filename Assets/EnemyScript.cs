@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -15,9 +16,11 @@ public class EnemyScript : MonoBehaviour
     public GameObject deathEffect;
     public static EnemyScript instance;
     public AudioSource[] audios;
+
    
     Animator anim;
     AudioSource Audio;
+   
 
     private void Awake()//single ton
     {
@@ -35,6 +38,7 @@ public class EnemyScript : MonoBehaviour
         currentHealth = startingHealth;
         Agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+       
        
     }
 
@@ -63,9 +67,8 @@ public class EnemyScript : MonoBehaviour
             Destroy(effect_,1f);
             anim.SetBool("Loose", true);
             GameObject temp = this.gameObject;
-            
-           
-            this.gameObject.SetActive(false);//As enemy dies sending enemy back to pool and making them false.
+
+         this.gameObject.SetActive(false);//As enemy dies sending enemy back to pool and making them false.
             GameManager.instance.Enemypool.Add(temp);
            
            
