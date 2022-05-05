@@ -43,25 +43,15 @@ public class GameManager : MonoBehaviour
     public void AddToPool()//This method is to add all the enemies into enemiespool list.
     {
 
-        for (int i = 0; i < 10; i++)
-        {
+         for (int i = 0; i < 20; i++)
+         {
 
-            Vector3 randompoint = transform.position + Random.insideUnitSphere * spawnRadius;//spawn position of enemies inside given sphere radius.
-            randompoint.y = 0f;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(randompoint, out hit, 10f, NavMesh.AllAreas))
-            {
-
-                GameObject temp = Instantiate(prefab, randompoint, Quaternion.identity);//Instantiating enemy prefabs
-                temp.SetActive(false);//making enemy prefabs false in the heirarchy.
+            
+        GameObject temp = Instantiate(prefab);//Instantiating enemy prefabs
+               temp.SetActive(false);//making enemy prefabs false in the heirarchy.
                 Enemypool.Add(temp);//adding instantiated prefab into the enemy pool list.
 
 
-            }
-            else
-            {
-                i--;
-            }
         }
 
         

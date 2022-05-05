@@ -68,12 +68,13 @@ public class EnemyScript : MonoBehaviour
 
             Destroy(effect_,1f);
             anim.SetBool("Loose", true);
-            GameObject temp = this.gameObject;
+           // GameObject temp = this.gameObject;
+            currentHealth = startingHealth;
             
 
 
          this.gameObject.SetActive(false);//As enemy dies sending enemy back to pool and making them false.
-            GameManager.instance.Enemypool.Add(temp);
+            //GameManager.instance.Enemypool.Add(temp);
            
            
         }

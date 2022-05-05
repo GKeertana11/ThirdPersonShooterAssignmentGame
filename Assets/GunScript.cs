@@ -99,7 +99,7 @@ public class GunScript : MonoBehaviour
             Debug.Log("Collected ammo");
 
         }
-        if (collision.gameObject.tag == "Med" && player.health <= player.maxhealth)
+        if (collision.gameObject.tag == "Med" && player.health < player.maxhealth)
         {
             Destroy(collision.gameObject);
 

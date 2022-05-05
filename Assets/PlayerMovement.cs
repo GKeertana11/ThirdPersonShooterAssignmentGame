@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+      
         character = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
         //enemy = GetComponent<Text>();
@@ -46,16 +47,15 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Ragdoll()
     {
-        
+
+        if (health < 0)
+        {
             Instantiate(ragdoll, this.transform.position, Quaternion.identity);
-        
+            Destroy(gameObject, 2f);
+        }
     }
 
-   /* public void Score()
-    {
-       
-
-    }*/
+  
 
 
 

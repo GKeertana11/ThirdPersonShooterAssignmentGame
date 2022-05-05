@@ -95,34 +95,37 @@ public class StateMachine : MonoBehaviour
                             time = 0f;
 
                         }
-
                         if (player.health <= 0)
                         {
-                                isGameOver = true;
+                            isGameOver = true;
 
                             player.Ragdoll();
 
-                            //target.SetActive(false);
+
                             gameover.GetComponent<Text>().enabled = true;
-                           
-                             TurnOffAllAnim();
+
+                            TurnOffAllAnim();
+
+
 
                         }
+
+
+
+                        if (DistanceToPlayer() > 20f)
+                        {
+                            state = STATE.IDLE;
+
+                        }
+
+                        if (DistanceToPlayer() >= 10f)
+                        {
+                            state = STATE.CHASE;
+                            agent.isStopped = false;
+                        }
                     }
-
-
-                    if (DistanceToPlayer() > 20f)
-                    {
-                        state = STATE.IDLE;
-
-                    }
+                        break;
                     
-                    if (DistanceToPlayer() >= 10f )
-                    {
-                        state = STATE.CHASE;
-                        agent.isStopped = false;
-                    }
-                    break;
 
                 case STATE.DEATH:
                     TurnOffAllAnim();
@@ -162,6 +165,12 @@ public class StateMachine : MonoBehaviour
         animator.SetBool("RUN", false);
         animator.SetBool("ATTACK", false);
     }
+   /* public void isdead()
+    {
+        
+
+        }
+    }*/
    
 
   
