@@ -18,11 +18,12 @@ public class GunScript : MonoBehaviour
     Animator anim;
     public ParticleSystem particle;
     public GameObject prefab;
-    int ammo = 10;
-    int maxAmmo = 20;
+    int ammo = 50;
+    int maxAmmo = 100;
     PlayerMovement player;
     public int enemycount = 0;
     public Text enemy;
+    public Image Gamewon;
 
 
     private void Awake()
@@ -83,6 +84,11 @@ public class GunScript : MonoBehaviour
                 health.Damage(5);//calling damage method decrese health when player shoots enemy.
                 enemycount = enemycount + 1;
                 enemy.text = enemycount.ToString();
+                if(enemycount>=20)
+                {
+                    Debug.Log("game won");
+                    Gamewon.enabled = true;
+                }
             }
 
         }
@@ -103,8 +109,8 @@ public class GunScript : MonoBehaviour
         {
             Destroy(collision.gameObject);
 
-            ammo = Mathf.Clamp(ammo + 25, 0, maxAmmo);
-            Debug.Log("Collected ammo");
+            ammo = Mathf.Clamp(player.health+ 25, 0, player.maxhealth);
+            Debug.Log("Collected health");
 
         }
     }

@@ -13,7 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public int maxhealth;
     public Slider healthBar;
     public GameObject ragdoll;
-   
+
+    public GameObject gameover;
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,10 +50,14 @@ public class PlayerMovement : MonoBehaviour
     public void Ragdoll()
     {
 
-        if (health < 0)
+        if (health <=0)
         {
-            Instantiate(ragdoll, this.transform.position, Quaternion.identity);
-            Destroy(gameObject, 2f);
+           GameObject temp= Instantiate(ragdoll, this.transform.position, Quaternion.identity);
+           
+            Destroy(gameObject);
+            Destroy(temp, 1f);
+            gameover.SetActive(true);
+
         }
     }
 

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
    // public int number;
     public float spawnRadius;
     bool spawnOnStart = true;
+   
     
 
 

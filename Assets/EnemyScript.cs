@@ -47,9 +47,11 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Agent.SetDestination(player.transform.position);//setting player as goal point for enemy (or) To make enemy follow player.
-       // Agent.stoppingDistance = 5f;//enemy should stop this distance.
+        if (player != null)
+        {
+            Agent.SetDestination(player.transform.position);//setting player as goal point for enemy (or) To make enemy follow player.
+                                                            // Agent.stoppingDistance = 5f;//enemy should stop this distance.
+        }
     }
     public void Damage(int damageAmount)//This method is to decrease enemy health as player shoots enemy.
     {

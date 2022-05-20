@@ -21,6 +21,7 @@ public class EnemySpawnScript : MonoBehaviour
 
     private void SpawnEnemies()
     {
+        
 
         for (int i = 0; i < 10; i++)
         {
@@ -60,7 +61,7 @@ public class EnemySpawnScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-if(Input.GetKeyDown(KeyCode.S))
+      if(Input.GetKeyDown(KeyCode.S))
         {
             SpawnEnemies();
         }

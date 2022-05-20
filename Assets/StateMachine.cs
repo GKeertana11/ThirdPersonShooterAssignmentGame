@@ -11,7 +11,7 @@ public class StateMachine : MonoBehaviour
     Animator animator;
     public GameObject target;
     public float stoppingDistance;
-    public enum STATE { IDLE, CHASE, ATTACK, DEATH }
+    public enum STATE { IDLE, CHASE, ATTACK, DANCE}
     public STATE state = STATE.IDLE;
 
     public float currentTime;
@@ -23,8 +23,7 @@ public class StateMachine : MonoBehaviour
   
     AudioClip audioClip;
     public float time;
-   
-    public Text gameover;
+
 
     void Start()
     {
@@ -42,7 +41,7 @@ public class StateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target != null&&isGameOver==false)
+        if (target != null)
         {
             switch (state)
             {
@@ -87,28 +86,11 @@ public class StateMachine : MonoBehaviour
                     {
                         if (time >= 3f)
                         {
-                            player.health--;
-                            player.health--;
-                            healthBar.value = (float)player.health / 100;
-
-                            Debug.Log(player.health);
+                            Attack();
                             time = 0f;
-
+                           
                         }
-                        if (player.health <= 0)
-                        {
-                            isGameOver = true;
-
-                            player.Ragdoll();
-
-
-                            gameover.GetComponent<Text>().enabled = true;
-
-                            TurnOffAllAnim();
-
-
-
-                        }
+                        
 
 
 
@@ -127,9 +109,10 @@ public class StateMachine : MonoBehaviour
                         break;
                     
 
-                case STATE.DEATH:
+                case STATE.DANCE:
                     TurnOffAllAnim();
-                    
+                    animator.SetBool("Dance", true);
+
                     break;
                 default:
                     break;
@@ -154,27 +137,48 @@ public class StateMachine : MonoBehaviour
             return false;
         }
     }
-    public void EnemyDead()
+    public void PlayerDead()
     {
 
-        state = STATE.DEATH;
+        state = STATE.DANCE;
     }
     public void TurnOffAllAnim()
     {
       
         animator.SetBool("RUN", false);
         animator.SetBool("ATTACK", false);
+        animator.SetBool("Death", false);
+        animator.SetBool("Dance",false);
     }
-   /* public void isdead()
+   public void Attack()
     {
-        
+        player.health--;
+        player.health--;
+        healthBar.value = (float)player.health / 100;
+
+        Debug.Log(player.health);
+        if (player.health == 0)
+        {
+           // isGameOver = true;
+
+            player.Ragdoll();
+
+           state= STATE.DANCE;
+          
+            Debug.Log("Gameover");
+
+            TurnOffAllAnim();
+
+
 
         }
-    }*/
+
+    }
+    }
    
 
   
 
     
-}
+
 

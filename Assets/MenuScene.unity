@@ -838,17 +838,14 @@ MonoBehaviour:
     game.
 
 
-    1. Use ASWD keys to move.
+    1. Use Up and Down arrow keys to move.
 
-    2. Use space button to Jump.
+    2. Use Left and right
+    arrows to rotate.
 
-    3.
-    Use mouse left click to Fire/Shoot.
+    3. Use mouse left click to Fire/Shoot.
 
-    4. Use R key to reload gun.
-
-    5.
-    Use Left and Right alt keys to switch weapons.'
+'
 --- !u!222 &913824944
 CanvasRenderer:
   m_ObjectHideFlags: 0
